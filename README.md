@@ -7,7 +7,7 @@ Cinder block for the Awesomium web browser library.
 Included are the Windows and MacOSX distributions of Awesomium 1.7.0 RC3, excluding their ```samples``` and ```wrappers``` folders. Please refer to the [Awesomium license](https://raw.github.com/paulhoux/Cinder-Awesomium/master/LICENSE.txt) for more information on licensing fees. Awesomium is NOT free software!
 
 
-#####Using this block with Cinder
+#####Adding this block to Cinder
 This block is meant to be used with the most recent development version of Cinder. See for more information on how to obtain this version:
 https://forum.libcinder.org/#Topic/23286000001389463
 
@@ -18,6 +18,11 @@ Cinder's tool for setting up empty projects, TinderBox, has been revamped and no
 * Add the Awesomium block to the blocks folder: ```git clone git://github.com/paulhoux/Cinder-Awesomium.git blocks/Awesomium```
 
 Alternatively, you can download the repository as a [ZIP-file](https://github.com/paulhoux/Cinder-Awesomium/zipball/master) and manually add the files to a "cinder_master\blocks\Awesomium" folder.
+
+
+#####Creating a sample application using Tinderbox
+For more information on how to use the block with TinderBox, please follow this link:
+https://forum.libcinder.org/#Topic/23286000001392019
 
 
 #####Copyright notice
