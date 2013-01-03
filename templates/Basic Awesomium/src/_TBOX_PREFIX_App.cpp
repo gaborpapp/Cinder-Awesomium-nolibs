@@ -93,6 +93,12 @@ void _TBOX_PREFIX_App::update()
 		catch( const std::exception &e ) {
 			console() << e.what() << std::endl;
 		}
+
+		// update the window title to reflect the loaded content
+		char title[1024];
+		mWebViewPtr->title().ToUTF8( title, 1024 );
+
+		app::getWindow()->setTitle( title );
 	}
 }
 
