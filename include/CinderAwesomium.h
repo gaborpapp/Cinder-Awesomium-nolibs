@@ -265,9 +265,21 @@ Awesomium::WebKeyboardEvent toKeyChar( ci::app::KeyEvent event )
 
 // Utility functions that take care of event handling
 
-//! sends a Cinder KeyDown event to the WebView
+//! sends a Cinder KeyDown event to the WebView and handles Cut, Copy and Paste
 inline void handleKeyDown( Awesomium::WebView *view, ci::app::KeyEvent event )
 {
+	// handle cut, copy, paste (as suggested by Simon Geilfus - thanks mate)
+	if( event.isAccelDown() )
+	{
+		switch( event.getCode() )
+		{
+		case ci::app::KeyEvent::KEY_x: view->Cut(); return;
+		case ci::app::KeyEvent::KEY_c: view->Copy(); return;
+		case ci::app::KeyEvent::KEY_v: view->Paste(); return;
+		}
+	}
+
+	// other keys
 	view->Focus();
 	view->InjectKeyboardEvent( toKeyEvent( event, Awesomium::WebKeyboardEvent::kTypeKeyDown ) );
 	view->InjectKeyboardEvent( toKeyChar( event ) );
