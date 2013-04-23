@@ -80,7 +80,7 @@ void _TBOX_PREFIX_App::update()
 	mWebCorePtr->Update();
 
 	// create or update our OpenGL Texture from the webview
-	if( ! mWebViewPtr->IsLoading() && ph::awesomium::isDirty( mWebViewPtr ) ) 
+	if( ph::awesomium::isDirty( mWebViewPtr ) ) 
 	{
 		try {
 			// set texture filter to NEAREST if you don't intend to transform (scale, rotate) it
