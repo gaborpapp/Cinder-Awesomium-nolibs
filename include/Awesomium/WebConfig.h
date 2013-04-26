@@ -9,8 +9,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_CONFIG_H_
 #define AWESOMIUM_WEB_CONFIG_H_
@@ -97,12 +97,20 @@ struct OSM_EXPORT WebConfig {
   int remote_debugging_port;
 
   ///
+  /// The host that the Awesomium Inspector's HTTP server should bind to.
+  ///
+  /// The default is "127.0.0.1" but it is sometimes useful to specify
+  /// a different IP to bind to (especially if you are behind a router).
+  ///
+  WebString remote_debugging_host;
+
+  ///
   /// Additional command-line options for Chromium (this is for advanced users
   /// only, use these at your own risk).
   ///
   /// @see https://gist.github.com/2999122 for a list of compatible options.
   ///
-  /// @note 
+  /// @note
   ///   Each option should be formatted as "--switch=value" or just "--switch"
   ///
   ///   For example: `"--use-gl=desktop"` to force native WebGL rendering.

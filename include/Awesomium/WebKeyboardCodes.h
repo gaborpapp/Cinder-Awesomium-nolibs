@@ -9,55 +9,56 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_KEYBOARD_CODES_H_
 #define AWESOMIUM_WEB_KEYBOARD_CODES_H_
 #pragma once
 
 namespace Awesomium {
-  
+
   /// Namespace containing all the key-code definitions for WebKeyboardEvent.
+  /// Most of these correspond directly to the key-code values on Windows.
   namespace KeyCodes {
-    
+
     // AK_BACK (08) BACKSPACE key
     const int AK_BACK = 0x08;
-    
+
     // AK_TAB (09) TAB key
     const int AK_TAB = 0x09;
-    
+
     // AK_CLEAR (0C) CLEAR key
     const int AK_CLEAR = 0x0C;
-    
+
     // AK_RETURN (0D)
     const int AK_RETURN = 0x0D;
-    
+
     // AK_SHIFT (10) SHIFT key
     const int AK_SHIFT = 0x10;
-    
+
     // AK_CONTROL (11) CTRL key
     const int AK_CONTROL = 0x11;
-    
+
     // AK_MENU (12) ALT key
     const int AK_MENU = 0x12;
-    
+
     // AK_PAUSE (13) PAUSE key
     const int AK_PAUSE = 0x13;
-    
+
     // AK_CAPITAL (14) CAPS LOCK key
     const int AK_CAPITAL = 0x14;
-    
+
     // AK_KANA (15) Input Method Editor (IME) Kana mode
     const int AK_KANA = 0x15;
-    
+
     // AK_HANGUEL (15) IME Hanguel mode (maintained for compatibility; use AK_HANGUL)
     // AK_HANGUL (15) IME Hangul mode
     const int AK_HANGUL = 0x15;
-    
+
     // AK_JUNJA (17) IME Junja mode
     const int AK_JUNJA = 0x17;
-    
+
     // AK_FINAL (18) IME final mode
     const int AK_FINAL = 0x18;
     

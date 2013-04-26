@@ -9,8 +9,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_RESOURCE_INTERCEPTOR_H_
 #define AWESOMIUM_RESOURCE_INTERCEPTOR_H_
@@ -55,6 +55,58 @@ class OSM_EXPORT ResourceInterceptor {
     return 0;
   }
 
+  ///
+  /// Override this method to intercept frame navigations. You can use this to
+  /// block or log navigations for each frame of a WebView.
+  ///
+  /// @param  origin_process_id   The unique process id of the origin WebView.
+  ///                             See WebView::process_id()
+  ///
+  /// @param  origin_routing_id   The unique routing id of the origin WebView.
+  ///                             See WebView::routing_id()
+  ///
+  /// @param  method   The HTTP method (usually GET or POST) of the request.
+  ///
+  /// @param  url    The URL that the frame wants to navigate to.
+  ///
+  /// @param  is_main_frame   Whether or not this navigation involves the main
+  ///                         frame (eg, the whole page is navigating away).
+  ///
+  /// @return  Return True to block a navigation. Return False to let it continue.
+  ///
+  /// @note WARNING: This method is called on the IO Thread, you should not
+  ///       make any calls to WebView or WebCore (they are not threadsafe).
+  ///
+  virtual bool OnFilterNavigation(int origin_process_id,
+                                  int origin_routing_id,
+                                  const Awesomium::WebString& method,
+                                  const Awesomium::WebURL& url,
+                                  bool is_main_frame) {
+    return false;
+  }
+
+  ///
+  /// Override this method to intercept download events (usually triggered
+  /// when a server response indicates the content should be downloaded, eg:
+  /// Content-Disposition: attachment). You can use this to log these
+  /// type of responses.
+  ///
+  /// @param  origin_process_id   The unique process id of the origin WebView.
+  ///                             See WebView::process_id()
+  ///
+  /// @param  origin_routing_id   The unique routing id of the origin WebView.
+  ///                             See WebView::routing_id()
+  ///
+  /// @param  url    The URL of the request that initiated the download.
+  ///
+  /// @note WARNING: This method is called on the IO Thread, you should not
+  ///       make any calls to WebView or WebCore (they are not threadsafe).
+  ///
+  virtual void OnWillDownload(int origin_process_id,
+                              int origin_routing_id,
+                                const Awesomium::WebURL& url) {
+  }
+
   virtual ~ResourceInterceptor() {}
 };
 
@@ -71,6 +123,10 @@ class OSM_EXPORT ResourceRequest {
   /// The process ID where this request originated from. This corresponds
   /// to WebView::process_id().
   virtual int origin_process_id() = 0;
+
+  /// The routing ID where this request originated from. This corresponds
+  /// to WebView::routing_id().
+  virtual int origin_routing_id() = 0;
 
   /// Get the URL associated with this request.
   virtual WebURL url() = 0;
@@ -90,8 +146,14 @@ class OSM_EXPORT ResourceRequest {
   /// Get extra headers for the request
   virtual WebString extra_headers() = 0;
 
+  ///
+  /// Add a list of HTTP header strings, each delimited by "\r\n". Each
+  /// individual header string should be in the format defined at the
+  /// following link: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+  ///
   virtual void set_extra_headers(const WebString& headers) = 0;
 
+  /// Add a single HTTP header key/value pair.
   virtual void AppendExtraHeader(const WebString& name,
                                  const WebString& value) = 0;
 

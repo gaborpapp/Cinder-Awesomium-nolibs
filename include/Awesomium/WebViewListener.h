@@ -9,8 +9,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_VIEW_LISTENER_H_
 #define AWESOMIUM_WEB_VIEW_LISTENER_H_
@@ -183,6 +183,23 @@ enum CanEditFlags {
   kCan_SelectAll = 0x40,
 };
 
+/// Used with WebViewListener::Dialog::OnShowCertificateError
+enum CertError {
+  kCertError_None = 0,                 ///< The certificate has no errors.
+  kCertError_CommonNameInvalid,        ///< The certificate's common name does not match the host name.
+  kCertError_DateInvalid,              ///< The certificate, by our clock, appears to either not yet be valid or to have already expired.
+  kCertError_AuthorityInvalid,         ///< The certificate is signed by an untrusted authority.
+  kCertError_ContainsErrors,           ///< The certificate contains errors.
+  kCertError_NoRevocationMechanism,    ///< The certificate has no mechanism for determining if it is revoked.
+  kCertError_UnableToCheckRevocation,  ///< The certificate's revocation information is currently unavailable.
+  kCertError_Revoked,                  ///< The certificate has been revoked.
+  kCertError_Invalid,                  ///< The certificate is invalid.
+  kCertError_WeakSignatureAlgorithm,   ///< The certificate was signed with a weak signature algorithm.
+  kCertError_WeakKey,                  ///< The certificate contains a weak key (eg., a too-small RSA key).
+  kCertError_NotInDNS,                 ///< The domain has an exclusive list of CERT records with valid fingerprints, none of which match the certificate.
+  kCertError_Unknown,                  ///< The certificate has some other unknown error.
+};
+
 /// Used with WebViewListener::Menu::OnShowContextMenu
 #pragma pack(push)
 #pragma pack(1)
@@ -190,7 +207,7 @@ struct OSM_EXPORT WebContextMenuInfo {
   int pos_x;                 ///< The x-coordinate of the menu's position.
   int pos_y;                 ///< The y-coordinate of the menu's position.
   MediaType media_type;      ///< The type of media (if any) that was clicked.
-  int media_state;           ///< The state of the media (if any).
+  int media_state;           ///< The state of the media (if any). See MediaState for flags.
   WebURL link_url;           ///< The URL of the link (if any).
   WebURL src_url;            ///< The URL of the media (if any).
   WebURL page_url;           ///< The URL of the web-page.
@@ -213,6 +230,34 @@ struct OSM_EXPORT WebLoginDialogInfo {
   unsigned short port;    ///< The port of the server.
   WebString scheme;       ///< The scheme of the server.
   WebString realm;        ///< The realm of the server.
+};
+#pragma pack(pop)
+
+/// Used with WebPageInfo. Gives an overall summary of the page's authentication status.
+enum SecurityStatus {
+  kSecurityStatus_Unknown = 0,            ///< We do not know the security status.
+  kSecurityStatus_Unauthenticated,        ///< The page is unauthenticated (either retrieved over HTTP/FTP, or retrieved over HTTPS with errors).
+  kSecurityStatus_AuthenticationBroken,   ///< The page was attempted to be retrieved in an authenticated manner but we were unable to do so (HTTPS errors).
+  kSecurityStatus_Authenticated,          ///< The pas was successfully retrieved over an authenticated protocol such as HTTPs.
+};
+
+/// Used with WebPageInfo. Gives an overall summary of the security of the page's actual content.
+enum ContentStatusFlags {
+  kContentStatusFlags_Normal = 0,                         ///< HTTP or HTTPS page has no insecure content.
+  kContentStatusFlags_DisplayedInsecureContent = 1 << 0,  ///< HTTPS page displayed insecure HTTP resources (such as images or CSS)
+  kContentStatusFlags_RanInsecureContent = 1 << 1,        ///< HTTPS page ran insecure HTTP resources (such as scripts).
+};
+
+/// Used with WebViewListener::Dialog::OnShowLoginDialog
+#pragma pack(push)
+#pragma pack(1)
+struct OSM_EXPORT WebPageInfo {
+  WebURL page_url;                 ///< The current URL of the page.
+  SecurityStatus security_status;  ///< The page's authentication status.
+  int content_status;              ///< The page's content security status. See ContentStatusFlags.
+  CertError cert_error;            ///< The current error in the page's SSL certificate (if any).
+  WebString cert_subject;          ///< The subject of the page's SSL certificate (should match server hostname).
+  WebString cert_issuer;           ///< The issuer of the page's SSL certificate.
 };
 #pragma pack(pop)
 
@@ -255,6 +300,14 @@ class OSM_EXPORT View {
   /// user-interaction event.
   virtual void OnChangeFocus(Awesomium::WebView* caller,
                              Awesomium::FocusedElementType focused_type) = 0;
+
+  /// This event occurs when a message is added to the console on the page.
+  /// This is usually the result of a JavaScript error being encountered
+  /// on a page.
+  virtual void OnAddConsoleMessage(Awesomium::WebView* caller,
+                                   const Awesomium::WebString& message,
+                                   int line_number,
+                                   const Awesomium::WebString& source) = 0;
 
   /// This event occurs when a WebView creates a new child WebView
   /// (usually the result of window.open or an external link). It
@@ -392,7 +445,7 @@ class OSM_EXPORT Dialog {
   /// @see WebView::DidChooseFiles
   ///
   virtual void OnShowFileChooser(Awesomium::WebView* caller,
-                                 const WebFileChooserInfo& chooser_info) = 0;
+                                 const Awesomium::WebFileChooserInfo& chooser_info) = 0;
 
   ///
   /// This event occurs when the page needs authentication from the user (for
@@ -404,7 +457,30 @@ class OSM_EXPORT Dialog {
   /// @see WebView::DidCancelLogin
   ///
   virtual void OnShowLoginDialog(Awesomium::WebView* caller,
-                                 const WebLoginDialogInfo& dialog_info) = 0;
+                                 const Awesomium::WebLoginDialogInfo& dialog_info) = 0;
+
+  ///
+  /// This event occurs when an SSL certificate error is encountered. This is
+  /// equivalent to when Chrome presents a dark-red screen with a warning about
+  /// a 'security certificate'. You may be able to ignore this error and
+  /// continue loading the page if is_overridable is true.
+  ///
+  /// @see WebView::DidOverrideCertificateError
+  ///
+  virtual void OnShowCertificateErrorDialog(Awesomium::WebView* caller,
+                                            bool is_overridable,
+                                            const Awesomium::WebURL& url,
+                                            Awesomium::CertError error) = 0;
+
+  ///
+  /// This event occurs as a result of an asynchronous call to 
+  /// WebView::RequestPageInfo. You can use this event to display additional
+  /// information about a page's SSL certificate or security status.
+  ///
+  /// @see WebView::RequestPageInfo
+  ///
+  virtual void OnShowPageInfoDialog(Awesomium::WebView* caller,
+                                    const Awesomium::WebPageInfo& page_info) = 0;
 
  protected:
   virtual ~Dialog() {}
@@ -450,7 +526,7 @@ class OSM_EXPORT Print {
   ///
   virtual void OnFinishPrint(Awesomium::WebView* caller,
                              int request_id,
-                             const WebStringArray& file_list) = 0;
+                             const Awesomium::WebStringArray& file_list) = 0;
 
  protected:
   virtual ~Print() {}

@@ -9,8 +9,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_KEYBOARD_EVENT_H_
 #define AWESOMIUM_WEB_KEYBOARD_EVENT_H_
@@ -83,22 +83,22 @@ class OSM_EXPORT WebKeyboardEvent {
   /// An enumeration of the different keyboard modifiers.
   enum Modifiers {
     /// Whether or not a Shift key is down
-    kModShiftKey     = 1 << 0, 
+    kModShiftKey     = 1 << 0,
 
     /// Whether or not a Control key is down
     kModControlKey   = 1 << 1,
 
     /// Whether or not an ALT key is down
-    kModAltKey       = 1 << 2, 
+    kModAltKey       = 1 << 2,
 
     /// Whether or not a meta key (Command-key on Mac, Windows-key on Win) is down
-    kModMetaKey      = 1 << 3, 
+    kModMetaKey      = 1 << 3,
 
     /// Whether or not the key pressed is on the keypad
     kModIsKeypad     = 1 << 4,
 
     /// Whether or not the character input is the result of an auto-repeat timer.
-    kModIsAutorepeat = 1 << 5, 
+    kModIsAutorepeat = 1 << 5,
   };
 
   /// The type of this WebKeyboardEvent
@@ -166,8 +166,8 @@ class OSM_EXPORT WebKeyboardEvent {
 /// @param  key_identifier_result  The string to store the result in (must be at
 ///                                least 20 chars).
 ///
-void OSM_EXPORT GetKeyIdentifierFromVirtualKeyCode(int virtual_key_code, 
-  char** key_identifier_result);  
+void OSM_EXPORT GetKeyIdentifierFromVirtualKeyCode(int virtual_key_code,
+  char** key_identifier_result);
 }
 
 #endif  // AWESOMIUM_WEB_KEYBOARD_EVENT_H_

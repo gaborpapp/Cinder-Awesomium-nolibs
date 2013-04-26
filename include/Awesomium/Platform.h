@@ -9,8 +9,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_PLATFORM_H_
 #define AWESOMIUM_PLATFORM_H_
@@ -27,6 +27,8 @@
 
 #if defined(_WIN32)
 #include <Windows.h>
+#elif defined(__linux__)
+#include <unistd.h>
 #elif defined(__APPLE__)
 #include <unistd.h>
 #ifdef __OBJC__
@@ -39,7 +41,7 @@ class NSView;
 #if __LP64__
 typedef long int64;
 #else
-typedef long long	int64;
+typedef long long int64;
 #endif
 
 typedef unsigned short wchar16;
@@ -62,11 +64,13 @@ enum Error {
 typedef HWND NativeWindow;
 #elif defined(__APPLE__)
 typedef NSView* NativeWindow;
+#else
+typedef void* NativeWindow;
 #endif
 
 #if defined(_WIN32)
 typedef HANDLE ProcessHandle;
-#elif defined(__APPLE__)
+#elif defined(__linux__) || defined(__APPLE__)
 typedef pid_t ProcessHandle;
 #endif
 
@@ -111,15 +115,18 @@ struct OSM_EXPORT Rect {
 /// If this is your first time exploring the API, we recommend
 /// starting with Awesomium::WebCore and Awesomium::WebView.
 ///
+/// For an introduction to basic API concepts, please see:
+///   http://wiki.awesomium.com/getting-started/basic-concepts.html
+///
 ///
 /// @section usefullinks_sec Useful Links
 /// - Awesomium Main: <http://www.awesomium.com>
-/// - Community Forums: <http://forums.awesomium.com>
+/// - Support: <http://answers.awesomium.com>
 /// - Wiki: <http://wiki.awesomium.com>
 ///
 /// @section copyright_sec Copyright
-/// This documentation is copyright (C) 2012 Khrona. All rights reserved.
-/// Awesomium is a trademark of Khrona.
+/// This documentation is copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 
 #endif  // AWESOMIUM_PLATFORM_H_

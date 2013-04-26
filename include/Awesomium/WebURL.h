@@ -9,8 +9,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_URL_H_
 #define AWESOMIUM_WEB_URL_H_
@@ -56,7 +56,7 @@ class OSM_EXPORT WebURL {
 
   /// The parsed scheme (ex, 'http')
   WebString scheme() const;
-  
+
   /// The parsed username (if any)
   WebString username() const;
 

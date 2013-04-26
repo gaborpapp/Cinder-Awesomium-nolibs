@@ -9,8 +9,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_SESSION_H_
 #define AWESOMIUM_WEB_SESSION_H_
@@ -99,6 +99,15 @@ class OSM_EXPORT WebSession {
   /// Clears all cookies asynchronously.
   ///
   virtual void ClearCookies() = 0;
+
+  ///
+  /// Gets the saved zoom amount for a certain URL host (in percent).
+  /// Zoom amounts are saved per-hostname.
+  ///
+  /// @see WebView::GetZoom
+  /// @see WebView::SetZoom
+  ///
+  virtual int GetZoomForURL(const WebURL& url) = 0;
 
  protected:
   virtual ~WebSession() {}

@@ -9,8 +9,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_BITMAP_SURFACE_H_
 #define AWESOMIUM_BITMAP_SURFACE_H_
@@ -24,7 +24,7 @@ namespace Awesomium {
 
 class WebView;
 
-/// 
+///
 /// @brief  This is the default Surface for WebView. It is a basic bitmap
 ///         that keeps track of whether or not it has changed since the
 ///         last time you called BitmapSurface::CopyTo.

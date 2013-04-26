@@ -9,8 +9,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_VIEW_H_
 #define AWESOMIUM_WEB_VIEW_H_
@@ -87,6 +87,13 @@ class OSM_EXPORT WebView {
   /// process active.
   ///
   virtual int process_id() = 0;
+
+  ///
+  /// Get the unique routing ID within the child-process. Each process may
+  /// have multiple WebViews, each with their own routing-id in said process.
+  /// May return 0 if the WebView has crashed or there is no process active.
+  ///
+  virtual int routing_id() = 0;
 
   ///
   /// Get the handle for the corresponding child-process hosting this
@@ -352,6 +359,38 @@ class OSM_EXPORT WebView {
   virtual FocusedElementType focused_element_type() = 0;
 
   ///
+  /// Zooms into the page by 20%. (This is full-page zoom, increases size of
+  /// text, CSS, and pictures similar to zoom in Chrome).
+  ///
+  virtual void ZoomIn() = 0;
+
+  ///
+  /// Zooms out the page by 20%. (This is full-page zoom, decreases size of
+  /// text, CSS, and pictures similar to zoom in Chrome).
+  ///
+  virtual void ZoomOut() = 0;
+
+  ///
+  /// Similar to ZoomIn and ZoomOut except you can specify an arbitrary
+  /// percentage between 25% and 500%.
+  ///
+  ///
+  /// @param zoom_percent  The percent to scale the page by. For ex, '200' will
+  ///                      zoom the page to 200% (effectively double in size).
+  ///
+  virtual void SetZoom(int zoom_percent) = 0;
+
+  ///
+  /// Reset the page zoom to 100%.
+  ///
+  virtual void ResetZoom() = 0;
+
+  ///
+  /// Get the current page zoom in percent. See also WebSession::GetZoomForURL.
+  ///
+  virtual int GetZoom() = 0;
+
+  ///
   /// Passes a mouse-move event to the view.
   ///
   /// @param  x  The x-coordinate of the current mouse position
@@ -595,6 +634,24 @@ class OSM_EXPORT WebView {
   virtual JSMethodHandler* js_method_handler() = 0;
 
   ///
+  /// Set the maximum amount of time (in milliseconds) to wait for a response
+  /// from a synchronous IPC message dispatched to the WebView's renderer
+  /// process.
+  ///
+  /// You should increase this if you find that a lot of your synchronous
+  /// method calls keep getting kError_TimedOut. (Your machine just may be
+  /// slow at handling IPC calls).
+  ///
+  /// Default is 800 (ms). Set this to 0 to use no timeout.
+  ///
+  virtual void set_sync_message_timeout(int timeout_ms) = 0;
+
+  ///
+  /// Get the maximum timeout for synchronous IPC messages.
+  ///
+  virtual int sync_message_timeout() = 0;
+
+  ///
   /// This method should be called as the result of a user selecting an item
   /// in a popup (dropdown) menu.
   ///
@@ -679,6 +736,21 @@ class OSM_EXPORT WebView {
   /// @see  WebViewListener::Download::OnRequestDownload
   ///
   virtual void DidCancelDownload(int download_id) = 0;
+
+  ///
+  /// This method should be called as the result of a user choosing to
+  /// ignore an SSL error and proceed loading the page anyways.
+  ///
+  /// @see  WebViewListener::Dialog::OnShowCertificateErrorDialog
+  ///
+  virtual void DidOverrideCertificateError() = 0;
+
+  ///
+  /// Request additional page info (such as SSL security status) asynchronously.
+  ///
+  /// @see  WebViewListener::Dialog::OnShowPageInfoDialog
+  ///
+  virtual void RequestPageInfo() = 0;
 
  protected:
     virtual ~WebView() {}

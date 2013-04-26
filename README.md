@@ -4,12 +4,11 @@ Cinder-Awesomium
 Cinder block for the Awesomium web browser library.
 
 
-Included are the Windows and MacOSX distributions of Awesomium 1.7.0 RC3, excluding their ```samples``` and ```wrappers``` folders. Please refer to the [Awesomium license](https://raw.github.com/paulhoux/Cinder-Awesomium/master/LICENSE.txt) for more information on licensing fees. Awesomium is NOT free software!
+Included are the Windows 1.7.0.5 and MacOSX 1.7.0 RC3 distributions of Awesomium, excluding their ```samples``` and ```wrappers``` folders. Please refer to the [Awesomium license](https://raw.github.com/paulhoux/Cinder-Awesomium/master/LICENSE.txt) for more information on licensing fees. Awesomium is NOT free software!
 
 
 #####Adding this block to Cinder
-This block is meant to be used with the most recent development version of Cinder. See for more information on how to obtain this version:
-https://forum.libcinder.org/#Topic/23286000001389463
+This block is meant to be used with version 0.8.5 of Cinder.
 
 Cinder's tool for setting up empty projects, TinderBox, has been revamped and now supports a neat system for the management of plug-ins called Cinder Blocks. This Awesomium block supports this new feature. To add this block to your copy of Cinder, so it will be detected automatically by TinderBox:
 * Open a command window (or Terminal)
@@ -22,11 +21,11 @@ Alternatively, you can download the repository as a [ZIP-file](https://github.co
 
 #####Creating a sample application using Tinderbox
 For more information on how to use the block with TinderBox, please follow this link:
-https://forum.libcinder.org/#Topic/23286000001392019
+http://libcinder.org/docs/welcome/TinderBox.html
 
 
 #####Copyright notice
-Copyright (c) 2010-2012, Paul Houx - All rights reserved.
+Copyright (c) 2010-2013, Paul Houx - All rights reserved.
 This code is intended for use with the Cinder C++ library: http://libcinder.org
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that

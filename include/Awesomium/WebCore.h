@@ -1,7 +1,8 @@
 ///
 /// @file WebCore.h
 ///
-/// @brief The main header for the Awesomium C++ API.
+/// @brief The main header for the Awesomium C++ API. This header includes most
+///        of the common API functions you will need.
 ///
 /// @author
 ///
@@ -9,8 +10,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_CORE_H_
 #define AWESOMIUM_WEB_CORE_H_

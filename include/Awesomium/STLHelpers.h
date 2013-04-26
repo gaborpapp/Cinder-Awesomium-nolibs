@@ -1,7 +1,9 @@
 ///
 /// @file STLHelpers.h
 ///
-/// @brief The header for all of the STL helper functions.
+/// @brief The header for all of the STL helper functions. This header is not
+///        included in the normal API via WebCore.h on purpose. You should
+///        only include this header if you use the STL in your application.
 ///
 /// @author
 ///
@@ -9,14 +11,15 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_STL_HELPERS_H_
 #define AWESOMIUM_STL_HELPERS_H_
 
 #include <Awesomium/WebString.h>
 #include <string>
+#include <cstring>
 #include <ostream>
 #include <istream>
 

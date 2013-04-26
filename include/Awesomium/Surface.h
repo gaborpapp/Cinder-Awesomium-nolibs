@@ -9,8 +9,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_SURFACE_H_
 #define AWESOMIUM_SURFACE_H_
@@ -67,12 +67,12 @@ class OSM_EXPORT Surface {
   /// section of the Surface by a certain offset. It your responsibility to
   /// translate the pixels within the specified clipping rectangle by the
   /// specified offset.
-  /// 
+  ///
   /// @param dx  The amount of pixels to offset vertically.
   /// @param dy  The amount of pixels to offset vertically.
-  /// 
+  ///
   /// @param clip_rect  The rectangle that this operation should be clipped to.
-  /// 
+  ///
   virtual void Scroll(int dx,
                       int dy,
                       const Awesomium::Rect& clip_rect) = 0;

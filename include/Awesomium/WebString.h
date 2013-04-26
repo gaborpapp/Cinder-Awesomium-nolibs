@@ -9,8 +9,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_STRING_H_
 #define AWESOMIUM_WEB_STRING_H_
@@ -54,7 +54,7 @@ class OSM_EXPORT WebString {
 
   /// Get the length of this string
   unsigned int length() const;
-  
+
   /// Whether or not this string is empty.
   bool IsEmpty() const;
 
@@ -77,7 +77,7 @@ class OSM_EXPORT WebString {
 
   ///
   /// Convert this WebString to a UTF8 string. To determine the length of
-  /// the destination buffer, you should call this with NULL dest and 0 len 
+  /// the destination buffer, you should call this with NULL dest and 0 len
   /// first. Returns the length of the final conversion.
   ///
   unsigned int ToUTF8(char* dest, unsigned int len) const;

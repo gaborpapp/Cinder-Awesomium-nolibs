@@ -9,8 +9,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_JS_OBJECT_H_
 #define AWESOMIUM_JS_OBJECT_H_
@@ -97,21 +97,21 @@ class OSM_EXPORT JSObject {
   JSArray GetPropertyNames() const;
 
   ///
-  /// Check whether or not this object has a certain property.
+  /// Check whether or not this object has a certain property synchronously.
   ///
   /// @param  name  The name of the property to check for existence.
   ///
   bool HasProperty(const WebString& name) const;
 
   ///
-  /// Get the value of a certain property.
+  /// Get the value of a certain property synchronously.
   ///
   /// @param  name  The name of the property to retrieve.
   ///
   JSValue GetProperty(const WebString& name) const;
 
   ///
-  /// Add or update a certain property.
+  /// Add or update a certain property synchronously.
   ///
   /// @param  name  The name of the property to set.
   ///
@@ -120,14 +120,27 @@ class OSM_EXPORT JSObject {
   void SetProperty(const WebString& name, const JSValue& value);
 
   ///
-  /// Remove a certain property.
+  /// Add or update a certain property asynchronously. This is useful when you
+  /// need to define a large set of properties at once and you would like the
+  /// whole operation to be queued together during the next update instead of
+  /// making lots of individual, synchronous IPC calls to the child-process
+  /// with JSObject::SetProperty.
+  ///
+  /// @param  name  The name of the property to set.
+  ///
+  /// @param  value  The value to set.
+  ///
+  void SetPropertyAsync(const WebString& name, const JSValue& value);
+
+  ///
+  /// Remove a certain property synchronously.
   ///
   /// @param  name  The name of the property to remove.
   ///
   void RemoveProperty(const WebString& name);
 
   ///
-  /// Get a list of this object's methods.
+  /// Get a list of this object's methods synchronously.
   ///
   /// @note  Only valid for Remote objects.
   ///
@@ -141,7 +154,7 @@ class OSM_EXPORT JSObject {
   bool HasMethod(const WebString& name) const;
 
   ///
-  /// Invoke a method with a set of arguments and return a result.
+  /// Invoke a method with a set of arguments and return a result synchronously.
   ///
   /// @note: Only valid for Remote objects.
   ///
@@ -152,6 +165,18 @@ class OSM_EXPORT JSObject {
   /// @return  Returns the result of the method call.
   ///
   JSValue Invoke(const WebString& name, const JSArray& args);
+
+  ///
+  /// Invoke a method asynchronously with a set of arguments, ignoring the
+  /// result.
+  ///
+  /// @note: Only valid for Remote objects.
+  ///
+  /// @param  name  The name of the method to call.
+  ///
+  /// @param  args  The arguments to pass.
+  ///
+  void InvokeAsync(const WebString& name, const JSArray& args);
 
   ///
   /// Get this object as a string.
@@ -203,7 +228,7 @@ class OSM_EXPORT JSObject {
 /// @see  JSObject::SetCustomMethod
 ///
 class JSMethodHandler {
-public:
+ public:
   ///
   /// This event occurs whenever a custom JSObject method (with no return
   /// value) is called from JavaScript.
@@ -218,7 +243,7 @@ public:
   /// @param  args  The arguments passed to the method.
   ///
   virtual void OnMethodCall(Awesomium::WebView* caller,
-                            unsigned int remote_object_id, 
+                            unsigned int remote_object_id,
                             const Awesomium::WebString& method_name,
                             const Awesomium::JSArray& args) = 0;
 
@@ -244,7 +269,7 @@ public:
   ///
   /// @return  You should handle this method call and return the result.
   ///
-  virtual JSValue OnMethodCallWithReturnValue(Awesomium::WebView* caller,
+  virtual Awesomium::JSValue OnMethodCallWithReturnValue(Awesomium::WebView* caller,
                                               unsigned int remote_object_id,
                                               const Awesomium::WebString& method_name,
                                               const Awesomium::JSArray& args) = 0;

@@ -32,8 +32,6 @@
 		<buildCopy>build/bin/msw/inspector.pak</buildCopy>
 		<buildCopy>build/bin/msw/libEGL.dll</buildCopy>
 		<buildCopy>build/bin/msw/libGLESv2.dll</buildCopy>
-		<buildCopy>build/bin/msw/SDL.dll</buildCopy>
-		<buildCopy>build/bin/msw/webui_assets.pak</buildCopy>
 	</platform>
 	<copyExclude>samples</copyExclude>
 </block>
