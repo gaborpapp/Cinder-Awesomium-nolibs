@@ -13,6 +13,7 @@
 	<supports os="msw" />
 	<includePath>include</includePath>
 	<header>include/CinderAwesomium.h</header>
+	<source>src/CinderAwesomium.cpp</source>
 	<platform os="macosx">
 		<framework>build/lib/macosx/Awesomium.framework</framework>
 		<buildCopy>build/lib/macosx/Awesomium.framework</buildCopy>
