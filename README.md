@@ -7,6 +7,9 @@ Cinder block for the Awesomium web browser library.
 Included are the Windows 1.7.0.5 and MacOSX 1.7.0 RC3 distributions of Awesomium, excluding their ```samples``` and ```wrappers``` folders. Please refer to the [Awesomium license](https://raw.github.com/paulhoux/Cinder-Awesomium/master/LICENSE.txt) for more information on licensing fees. Awesomium is NOT free software!
 
 
+*Important note*: this block was created as an exercise in creating Cinder blocks. I am not an avid user of Awesomium, nor affiliated, least of all an expert. The block is provided as is. However, I will accept pull request that add to, or update, the functionality of this block.
+
+
 #####Adding this block to Cinder
 This block is meant to be used with version 0.8.5 of Cinder.
 
