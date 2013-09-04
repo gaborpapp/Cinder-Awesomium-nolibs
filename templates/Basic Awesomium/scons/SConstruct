@@ -1,0 +1,12 @@
+env = Environment()
+
+env['APP_TARGET'] = 'BasicAwesomium'
+env['APP_SOURCES'] = ['_TBOX_PREFIX_App.cpp']
+env['ASSETS'] = ['loading.png']
+env['DEBUG'] = 0
+
+# Cinder-Awesomium
+env = SConscript('../../../scons/SConscript', exports = 'env')
+
+SConscript('../../../../../scons/SConscript', exports = 'env')
+

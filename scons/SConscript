@@ -1,0 +1,19 @@
+Import('env')
+
+_INCLUDES = [Dir('../include').abspath]
+
+_SOURCES = ['CinderAwesomium.cpp']
+_SOURCES = [File('../src/' + s).abspath for s in _SOURCES]
+
+env.Append(CPPPATH = _INCLUDES)
+env.Append(APP_SOURCES = _SOURCES)
+env.Append(FRAMEWORKS = ['Awesomium'])
+env.Append(FRAMEWORKPATH = [Dir('../build/lib/macosx/').abspath])
+
+# copy Awesomium.framework to app
+if 'APP_TARGET' in env:
+	fout = env['APP_TARGET'] + '.app/Contents/MacOS/Awesomium.framework'
+	fin = Dir('../build/lib/macosx/Awesomium.framework').abspath
+	Command('#' + fout, fin, Copy(fout, fin))
+
+Return('env')

@@ -12,26 +12,27 @@ using namespace std;
 class _TBOX_PREFIX_App : public AppBasic {
 public:
 	void prepareSettings( Settings *settings );
-	
+
 	void setup();
 	void shutdown();
 	void update();
 	void draw();
-	
+
 	void resize();
-	
-	void mouseMove( MouseEvent event );	
-	void mouseDown( MouseEvent event );	
-	void mouseDrag( MouseEvent event );	
-	void mouseUp( MouseEvent event );	
-	void mouseWheel( MouseEvent event );	
-	
+
+	void mouseMove( MouseEvent event );
+	void mouseDown( MouseEvent event );
+	void mouseDrag( MouseEvent event );
+	void mouseUp( MouseEvent event );
+	void mouseWheel( MouseEvent event );
+
 	void keyDown( KeyEvent event );
 	void keyUp( KeyEvent event );
+
 private:
 	Awesomium::WebCore*		mWebCorePtr;
 	Awesomium::WebView*		mWebViewPtr;
-	
+
 	gl::Texture				mWebTexture;
 	gl::Texture				mLoadingTexture;
 
@@ -80,11 +81,11 @@ void _TBOX_PREFIX_App::update()
 	mWebCorePtr->Update();
 
 	// create or update our OpenGL Texture from the webview
-	if( ph::awesomium::isDirty( mWebViewPtr ) ) 
+	if( ph::awesomium::isDirty( mWebViewPtr ) )
 	{
 		try {
 			// set texture filter to NEAREST if you don't intend to transform (scale, rotate) it
-			gl::Texture::Format fmt; 
+			gl::Texture::Format fmt;
 			fmt.setMagFilter( GL_NEAREST );
 
 			// get the texture using a handy conversion function
@@ -104,7 +105,7 @@ void _TBOX_PREFIX_App::update()
 
 void _TBOX_PREFIX_App::draw()
 {
-	gl::clear(); 
+	gl::clear();
 
 	if( mWebTexture )
 	{
@@ -112,7 +113,7 @@ void _TBOX_PREFIX_App::draw()
 		gl::draw( mWebTexture );
 	}
 
-	// show spinner while loading 
+	// show spinner while loading
 	if( mLoadingTexture && mWebViewPtr && mWebViewPtr->IsLoading() )
 	{
 		gl::pushModelView();
@@ -121,7 +122,7 @@ void _TBOX_PREFIX_App::draw()
 		gl::scale( 0.5f, 0.5f );
 		gl::rotate( 180.0f * float( getElapsedSeconds() ) );
 		gl::translate( -0.5f * Vec2f( mLoadingTexture.getSize() ) );
-		
+
 		gl::color( Color::white() );
 		gl::enableAlphaBlending();
 		gl::draw( mLoadingTexture );
