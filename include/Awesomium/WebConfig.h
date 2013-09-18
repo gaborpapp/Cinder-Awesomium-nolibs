@@ -105,6 +105,12 @@ struct OSM_EXPORT WebConfig {
   WebString remote_debugging_host;
 
   ///
+  /// Whether or not process memory should be attempted to be reduced on
+  /// each page navigation. See WebView::ReduceMemoryUsage
+  ///
+  bool reduce_memory_usage_on_navigation;
+
+  ///
   /// Additional command-line options for Chromium (this is for advanced users
   /// only, use these at your own risk).
   ///

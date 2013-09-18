@@ -46,6 +46,8 @@ typedef long long int64;
 
 typedef unsigned short wchar16;
 
+#define OSM_VERSION "1.7.2"
+
 /// The namespace for the Awesomium API.
 namespace Awesomium {
 

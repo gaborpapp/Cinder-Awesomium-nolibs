@@ -28,6 +28,17 @@
 namespace Awesomium {
 
 ///
+/// The severity level for a log message. See WebCore::Log
+///
+enum LogSeverity {
+  kLogSeverity_Info = 0,    ///< Info message
+  kLogSeverity_Warning,     ///< Warning message
+  kLogSeverity_Error,       ///< Error message
+  kLogSeverity_ErrorReport, ///< Error report message
+  kLogSeverity_Fatal        ///< Fatal error message, terminates application
+};
+
+///
 /// @brief  The core of Awesomium. You should initialize it before doing
 ///         anything else.
 ///
@@ -134,6 +145,15 @@ class OSM_EXPORT WebCore {
   /// any queued WebViewListener events.
   ///
   virtual void Update() = 0;
+
+  ///
+  /// Log a message to the log (print to the console and log file).
+  ///
+  virtual void Log(const WebString& message,
+                   LogSeverity severity,
+                   const WebString& file,
+                   int line) = 0;
+
 
   ///
   /// Get the version for this build of Awesomium.

@@ -752,6 +752,13 @@ class OSM_EXPORT WebView {
   ///
   virtual void RequestPageInfo() = 0;
 
+  ///
+  /// Forces V8 to release as much memory as possible (collects garbage, dumps
+  /// cached structures, etc) and also clears WebKit cache. This helps to
+  /// reduce memory accumulated within the process associated with this view.
+  ///
+  virtual void ReduceMemoryUsage() = 0;
+
  protected:
     virtual ~WebView() {}
 };

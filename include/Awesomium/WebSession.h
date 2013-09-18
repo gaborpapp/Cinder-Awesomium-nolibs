@@ -101,6 +101,11 @@ class OSM_EXPORT WebSession {
   virtual void ClearCookies() = 0;
 
   ///
+  /// Clears the cache asynchronously.
+  ///
+  virtual void ClearCache() = 0;
+
+  ///
   /// Gets the saved zoom amount for a certain URL host (in percent).
   /// Zoom amounts are saved per-hostname.
   ///
