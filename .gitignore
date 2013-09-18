@@ -6,3 +6,6 @@
 *.sdf
 *.suo
 *.user
+
+.sconsign.dblite
+.o
