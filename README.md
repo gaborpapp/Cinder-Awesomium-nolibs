@@ -23,8 +23,14 @@ Alternatively, you can download the repository as a [ZIP-file](https://github.co
 
 
 #####Creating a sample application using Tinderbox
-For more information on how to use the block with TinderBox, please follow this link:
-http://libcinder.org/docs/welcome/TinderBox.html
+The provided sample will show you how to use Awesomium in your application. To create and compile the sample:
+* Run Cinder's TinderBox
+* Select "Awesomium: Basic" from the Template popup menu
+* Choose a name for the project
+* Choose a location for the project
+* Choose your environment(s) of choice
+* Press "Next"
+* Press "Finish"
 
 
 #####Copyright notice
