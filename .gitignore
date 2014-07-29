@@ -1,3 +1,4 @@
+.DS_Store
 
 /*/vc10/Debug
 /*/vc10/ipch
@@ -8,4 +9,6 @@
 *.user
 
 .sconsign.dblite
-.o
+*.o
+*.obj
+
