@@ -1,19 +1,40 @@
 Import('env')
 
 _INCLUDES = [Dir('../include').abspath]
+if env['PLATFORM'] == 'win32':
+	_INCLUDES += [Dir('../include/msw').abspath]
+
 
 _SOURCES = ['CinderAwesomium.cpp']
 _SOURCES = [File('../src/' + s).abspath for s in _SOURCES]
 
 env.Append(CPPPATH = _INCLUDES)
 env.Append(APP_SOURCES = _SOURCES)
-env.Append(FRAMEWORKS = ['Awesomium'])
-env.Append(FRAMEWORKPATH = [Dir('../build/lib/macosx/').abspath])
 
-# copy Awesomium.framework to app
-if 'APP_TARGET' in env:
-	fout = env['APP_TARGET'] + '.app/Contents/MacOS/Awesomium.framework'
-	fin = Dir('../build/lib/macosx/Awesomium.framework').abspath
-	Command('#' + fout, fin, Copy(fout, fin))
+if env['PLATFORM'] == 'darwin':
+	env.Append(FRAMEWORKS = ['Awesomium'])
+	env.Append(FRAMEWORKPATH = [Dir('../build/lib/macosx/').abspath])
+
+	# copy Awesomium.framework to app
+	if 'APP_TARGET' in env:
+		fout = env['APP_TARGET'] + '.app/Contents/MacOS/Awesomium.framework'
+		fin = Dir('../build/lib/macosx/Awesomium.framework').abspath
+		Command('#' + fout, fin, Copy(fout, fin))
+
+elif env['PLATFORM'] == 'win32':
+	_LIBS = ['awesomium.lib']
+	_LIBS = [Dir('../build/lib/msw').abspath + '/' + s for s in _LIBS]
+	_LIBS = [File(s) for s in _LIBS]
+	env.Append(LIBS = _LIBS)
+
+	BIN_FILES = Split('avcodec-53.dll awesomium.dll libEGL.dll ' + \
+			'avformat-53.dll awesomium_pak_utility.exe icudt.dll ' + \
+			'libGLESv2.dll avutil-51.dll awesomium_process.exe ' + \
+			'inspector.pak xinput9_1_0.dll')
+	for f in BIN_FILES:
+		fin = Dir('../build/bin/msw/').abspath + '/' + f
+		Command('#' + f, fin, Copy(f, fin))
+
+
 
 Return('env')
