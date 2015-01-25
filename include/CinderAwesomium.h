@@ -34,9 +34,9 @@ inline ci::Surface toSurface( Awesomium::WebView* webview )
 	return toSurface( (Awesomium::BitmapSurface*) webview->surface() );
 }
 
-ci::gl::Texture toTexture( Awesomium::BitmapSurface* surface, ci::gl::Texture::Format format=ci::gl::Texture::Format() );
+ci::gl::TextureRef toTexture( Awesomium::BitmapSurface* surface, ci::gl::Texture::Format format=ci::gl::Texture::Format() );
 
-inline ci::gl::Texture toTexture( Awesomium::WebView* webview, ci::gl::Texture::Format format=ci::gl::Texture::Format() )
+inline ci::gl::TextureRef toTexture( Awesomium::WebView* webview, ci::gl::Texture::Format format=ci::gl::Texture::Format() )
 {
 	return toTexture( (Awesomium::BitmapSurface*) webview->surface(), format );
 }

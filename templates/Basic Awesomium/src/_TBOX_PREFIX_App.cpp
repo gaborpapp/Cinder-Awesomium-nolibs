@@ -1,5 +1,6 @@
 #include "cinder/ImageIO.h"
 #include "cinder/app/AppBasic.h"
+#include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "cinder/gl/Texture.h"
 
@@ -33,8 +34,8 @@ private:
 	Awesomium::WebCore*		mWebCorePtr;
 	Awesomium::WebView*		mWebViewPtr;
 
-	gl::Texture				mWebTexture;
-	gl::Texture				mLoadingTexture;
+	gl::TextureRef			mWebTexture;
+	gl::TextureRef			mLoadingTexture;
 
 	Font					mFont;
 };
@@ -64,7 +65,7 @@ void _TBOX_PREFIX_App::setup()
 	mWebViewPtr->Focus();
 
 	// load and create a "loading" icon
-	try { mLoadingTexture = gl::Texture( loadImage( loadAsset( "loading.png" ) ) ); }
+	try { mLoadingTexture = gl::Texture::create( loadImage( loadAsset( "loading.png" ) ) ); }
 	catch( const std::exception &e ) { console() << "Error loading asset: " << e.what() << std::endl; }
 }
 
@@ -118,10 +119,10 @@ void _TBOX_PREFIX_App::draw()
 	{
 		gl::pushModelView();
 
-		gl::translate( 0.5f * Vec2f( getWindowSize() ) );
+		gl::translate( 0.5f * vec2( getWindowSize() ) );
 		gl::scale( 0.5f, 0.5f );
 		gl::rotate( 180.0f * float( getElapsedSeconds() ) );
-		gl::translate( -0.5f * Vec2f( mLoadingTexture.getSize() ) );
+		gl::translate( -0.5f * vec2( mLoadingTexture->getSize() ) );
 
 		gl::color( Color::white() );
 		gl::enableAlphaBlending();
