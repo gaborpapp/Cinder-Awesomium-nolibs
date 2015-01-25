@@ -121,7 +121,7 @@ void _TBOX_PREFIX_App::draw()
 
 		gl::translate( 0.5f * vec2( getWindowSize() ) );
 		gl::scale( 0.5f, 0.5f );
-		gl::rotate( 180.0f * float( getElapsedSeconds() ) );
+		gl::rotate( M_PI * float( getElapsedSeconds() ) );
 		gl::translate( -0.5f * vec2( mLoadingTexture->getSize() ) );
 
 		gl::color( Color::white() );
