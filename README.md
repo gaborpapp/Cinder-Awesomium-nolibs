@@ -1,11 +1,13 @@
-Cinder-Awesomium
-================
+Cinder-Awesomium-nolibs
+=======================
 
 Cinder block for the Awesomium web browser library.
 
+This is a fork of the original https://github.com/paulhoux/Cinder-Awesomium with the binaries removed.
 
-Included are the Windows 1.7.0.5 and MacOSX 1.7.0 RC3 distributions of Awesomium, excluding their ```samples``` and ```wrappers``` folders. Please refer to the [Awesomium license](https://raw.github.com/paulhoux/Cinder-Awesomium/master/LICENSE.txt) for more information on licensing fees. Awesomium is NOT free software!
+The 1.7.4.2. libraries for OS X and Windows are [here](https://app.box.com/s/gs0l1dgwbn0fr26wztixy1gjr4q2v9wo).
 
+Please refer to the [Awesomium license](https://raw.github.com/paulhoux/Cinder-Awesomium/master/LICENSE.txt) for more information on licensing fees. Awesomium is NOT free software!
 
 *Important note*: this block was created as an exercise in creating Cinder blocks. I am not an avid user of Awesomium, nor affiliated, least of all an expert. The block is provided as is. However, I will accept pull request that add to, or update, the functionality of this block.
 
