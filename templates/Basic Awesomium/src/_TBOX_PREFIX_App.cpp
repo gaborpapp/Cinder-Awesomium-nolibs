@@ -1,5 +1,5 @@
 #include "cinder/ImageIO.h"
-#include "cinder/app/AppBasic.h"
+#include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "cinder/gl/Texture.h"
@@ -10,9 +10,9 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-class _TBOX_PREFIX_App : public AppBasic {
+class _TBOX_PREFIX_App : public App {
 public:
-	void prepareSettings( Settings *settings );
+	static void prepareSettings( Settings *settings );
 
 	void setup();
 	void shutdown();
@@ -52,7 +52,8 @@ void _TBOX_PREFIX_App::setup()
 	Awesomium::WebConfig cnf;
 	cnf.log_level = Awesomium::kLogLevel_Verbose;
 #if defined( CINDER_MAC )
-	std::string frameworkPath = ( getAppPath() / "Contents" / "MacOS" ).string();
+	// TODO: app path needs to be hardcoded here
+	std::string frameworkPath = ( getAppPath() / "BasicAwesomium.app/Contents" / "MacOS" ).string();
 	cnf.package_path = Awesomium::WebString::CreateFromUTF8( frameworkPath.c_str(), frameworkPath.size() );
 #endif
 
@@ -182,4 +183,4 @@ void _TBOX_PREFIX_App::keyUp( KeyEvent event )
 	ph::awesomium::handleKeyUp( mWebViewPtr, event );
 }
 
-CINDER_APP_BASIC( _TBOX_PREFIX_App, RendererGl )
+CINDER_APP( _TBOX_PREFIX_App, RendererGl, &_TBOX_PREFIX_App::prepareSettings )

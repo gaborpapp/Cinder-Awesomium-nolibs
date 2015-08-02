@@ -1,9 +1,11 @@
 Import('env')
 
+env.Append(CCFLAGS = '-arch i386')
+env.Append(LINKFLAGS = '-arch i386')
+
 _INCLUDES = [Dir('../include').abspath]
 if env['PLATFORM'] == 'win32':
 	_INCLUDES += [Dir('../include/msw').abspath]
-
 
 _SOURCES = ['CinderAwesomium.cpp']
 _SOURCES = [File('../src/' + s).abspath for s in _SOURCES]
@@ -34,7 +36,5 @@ elif env['PLATFORM'] == 'win32':
 	for f in BIN_FILES:
 		fin = Dir('../build/bin/msw/').abspath + '/' + f
 		Command('#' + f, fin, Copy(f, fin))
-
-
 
 Return('env')
