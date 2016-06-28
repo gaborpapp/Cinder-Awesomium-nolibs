@@ -167,10 +167,11 @@ ci::gl::TextureRef toTexture( Awesomium::BitmapSurface* surface, ci::gl::Texture
 
 	// set isDirty to false, because we are manually copying the data
 	surface->set_is_dirty( false );
-	format.loadTopDown();
 
 	// create the gl::Texture by copying the data directly
-	return ci::gl::Texture::create( surface->buffer(), GL_BGRA, surface->width(), surface->height(), format );
+	ci::gl::TextureRef tex = ci::gl::Texture::create( surface->buffer(), GL_BGRA, surface->width(), surface->height(), format );
+	tex->setTopDown();
+	return tex;
 
 	// TODO: a more efficient way to render the Surface would be to create a ph::awesomium::Texture class that extends Awesomium::Surface,
 	// and use the Paint and Scroll methods to efficiently copy the changed portion. Then use Awesomium::WebCore::set_surface_factory() 
