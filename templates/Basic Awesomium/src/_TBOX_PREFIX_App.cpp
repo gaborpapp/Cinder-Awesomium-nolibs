@@ -53,7 +53,7 @@ void _TBOX_PREFIX_App::setup()
 	cnf.log_level = Awesomium::kLogLevel_Verbose;
 #if defined( CINDER_MAC )
 	// TODO: app path needs to be hardcoded here
-	std::string frameworkPath = ( getAppPath() / "BasicAwesomium.app/Contents" / "MacOS" ).string();
+	std::string frameworkPath = ( getAppPath() / "BasicAwesomiumApp.app/Contents" / "MacOS" ).string();
 	cnf.package_path = Awesomium::WebString::CreateFromUTF8( frameworkPath.c_str(), frameworkPath.size() );
 #endif
 
